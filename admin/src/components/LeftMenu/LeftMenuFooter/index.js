@@ -1,21 +1,24 @@
-import React from 'react';
-import { defineMessages, FormattedMessage } from 'react-intl';
+/**
+ *
+ * LeftMenuFooter
+ *
+ */
 
-import Wrapper from './Wrapper';
-import messages from './messages.json';
+import React from "react";
 
-defineMessages(messages);
+import Wrapper from "./Wrapper";
 
 function LeftMenuFooter() {
   return (
     <Wrapper>
       <div className="poweredBy">
-        <FormattedMessage
-          id={messages.poweredBy.id}
-          defaultMessage={messages.poweredBy.defaultMessage}
-          key="poweredBy"
-        />
-        <a key="website" href="https://reactavancado.com.br" target="_blank" rel="noopener noreferrer">
+        <span>Mantido por </span>
+        <a
+          key="website"
+          href="https://reactavancado.com.br"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           React Avançado
         </a>
       </div>

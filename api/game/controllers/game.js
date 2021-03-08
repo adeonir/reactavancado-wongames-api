@@ -7,7 +7,7 @@
 
 module.exports = {
   populate: async (ctx) => {
-    console.info("Starting to populate...");
+    console.log("Starting to populate...");
 
     const options = {
       sort: "popularity",
@@ -16,8 +16,7 @@ module.exports = {
     };
 
     await strapi.services.game.populate(options);
-    ctx.send({ status: 200 });
 
-    console.info("Finished populating!");
+    ctx.send("Finished populating!");
   },
 };

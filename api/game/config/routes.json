@@ -33,14 +33,6 @@
       }
     },
     {
-      "method": "POST",
-      "path": "/games/populate",
-      "handler": "game.populate",
-      "config": {
-        "policies": []
-      }
-    },
-    {
       "method": "PUT",
       "path": "/games/:id",
       "handler": "game.update",
@@ -52,6 +44,14 @@
       "method": "DELETE",
       "path": "/games/:id",
       "handler": "game.delete",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/games/populate",
+      "handler": "game.populate",
       "config": {
         "policies": []
       }

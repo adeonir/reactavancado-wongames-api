@@ -44,13 +44,12 @@ const colors = {
     blue: '#0097f7',
   },
   won: {
-    blueLighter: '#161a3c',
     blueLight: '#10132d',
     blue: '#0a0d27',
     blueDark: '#06081b',
     pink: '#f231a5',
     orange: '#f56161',
-  },
+  }
 };
 
 export default colors;

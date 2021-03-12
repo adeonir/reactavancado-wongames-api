@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+  postgres:
+    image: postgres:alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: docker
+      POSTGRES_PASSWORD: docker
+      POSTGRES_DG: wongames
+
+volumes:
+  postgres:

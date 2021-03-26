@@ -7,12 +7,12 @@ module.exports = ({ env }) => ({
         client: 'postgres',
         host: env('DATABASE_HOST', '127.0.0.1'),
         port: env.int('DATABASE_PORT', 5432),
-        database: env('DATABASE_NAME', 'docker'),
-        username: env('DATABASE_USERNAME', 'docker'),
-        password: env('DATABASE_PASSWORD', 'docker'),
+        database: env('DATABASE_NAME', 'wongames'),
+        username: env('DATABASE_USERNAME', 'root'),
+        password: env('DATABASE_PASSWORD', 'root'),
         ssl: env.bool('DATABASE_SSL', false),
       },
-      options: {}
+      options: {},
     },
   },
 });

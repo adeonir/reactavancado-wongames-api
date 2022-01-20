@@ -21,4 +21,16 @@ module.exports = {
 
     return sanitizeEntity(entity, { model: strapi.models.wishlist });
   },
+  async update(ctx) {
+    try {
+      const entity = await strapi.services.wishlist.update(
+        { id: ctx.params.id },
+        ctx.request.body
+      );
+
+      return sanitizeEntity(entity, { model: strapi.models.wishlist });
+    } catch (error) {
+      throw strapi.errors.unauthorized(error);
+    }
+  },
 };

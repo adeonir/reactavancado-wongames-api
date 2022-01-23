@@ -38,6 +38,18 @@ module.exports = {
       };
     }
 
-    return { total_in_cents: total * 100, games };
+    try {
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: total * 100,
+        currency: 'usd',
+        payment_method_types: ['card'],
+      });
+
+      return paymentIntent;
+    } catch (error) {
+      return {
+        error: error.raw.message,
+      };
+    }
   },
 };

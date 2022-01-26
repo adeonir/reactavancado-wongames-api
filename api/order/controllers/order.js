@@ -9,25 +9,34 @@ module.exports = {
     const { cart, paymentIntentId, paymentMethod } = ctx.request.body;
 
     const gamesIds = await strapi.config.functions.cart.getGamesIds(cart);
+    const games = await strapi.config.functions.cart.getCartItems(gamesIds);
+    const total_in_cents = await strapi.config.functions.cart.getTotal(games);
+
+    let paymentInfo;
+    if (total_in_cents !== 0) {
+      try {
+        paymentInfo = await stripe.paymentMethods.retrieve(paymentMethod);
+      } catch (error) {
+        ctx.response.status = 402;
+        return { error: error.message };
+      }
+    }
 
     const token = await strapi.plugins[
       'users-permissions'
     ].services.jwt.getToken(ctx);
+
     const userId = token.id;
     const user = await strapi
       .query('user', 'users-permissions')
       .findOne({ id: userId });
 
-    const games = await strapi.config.functions.cart.getCartItems(gamesIds);
-
-    const total_in_cents = await strapi.config.functions.cart.getTotal(games);
-
     const entry = {
       total_in_cents,
       payment_intent_id: paymentIntentId,
       payment_method: paymentMethod,
-      card_brand: null,
-      last4: null,
+      card_brand: paymentInfo?.card?.brand,
+      last4: paymentInfo?.card?.last4,
       games,
       user,
     };
@@ -40,8 +49,8 @@ module.exports = {
     const { cart } = ctx.request.body;
 
     const gamesIds = await strapi.config.functions.cart.getGamesIds(cart);
-
     const games = await strapi.config.functions.cart.getCartItems(gamesIds);
+    const total = await strapi.config.functions.cart.getTotal(games);
 
     if (!games.length) {
       ctx.response.status = 404;
@@ -50,8 +59,6 @@ module.exports = {
         error: 'No valid games found',
       };
     }
-
-    const total = await strapi.config.functions.cart.getTotal(games);
 
     if (total === 0) {
       return {

@@ -22,7 +22,7 @@ const html = `
     <li><strong>Card number:</strong> **** **** **** <%= payment.card_last4 %></li>
   </ul>
 
-  <h3>Total: <%= payment.total %></h3>
+  <p>Total: <strong><%= payment.total %></strong></p>
 
   <hr />
 

@@ -1,8 +1,8 @@
 'use strict';
 
-const { sanitizeEntity } = require('strapi-utils/lib');
-
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+const { sanitizeEntity } = require('strapi-utils/lib');
+const emailTemplate = require('../../../config/email-templates/order');
 
 module.exports = {
   create: async (ctx) => {
@@ -42,6 +42,23 @@ module.exports = {
     };
 
     const entity = await strapi.services.order.create(entry);
+
+    await strapi.plugins.email.services.email.sendTemplatedEmail(
+      {
+        to: user.email,
+        from: 'info@wongames.com',
+      },
+      emailTemplate,
+      {
+        user,
+        payment: {
+          total: `$ ${total_in_cents / 100}`,
+          card_brand: entry.card_brand,
+          last4: entry.last4,
+        },
+        games,
+      }
+    );
 
     return sanitizeEntity(entity, { model: strapi.models.order });
   },

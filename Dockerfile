@@ -1,5 +1,8 @@
 FROM strapi/base:14
 
+ENV NODE_ENV production
+ENV DATABASE_CLIENT=postgres
+
 WORKDIR /opt/app
 
 COPY ./package.json ./
@@ -11,10 +14,7 @@ RUN npx browserslist@latest --update-db
 
 COPY . .
 
-ENV NODE_ENV production
-ENV DATABASE_CLIENT=postgres
-
-RUN yarn build --clean
+RUN yarn build
 
 EXPOSE 1337
 CMD ["yarn", "start"]

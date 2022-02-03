@@ -14,7 +14,6 @@ COPY . .
 ENV NODE_ENV production
 ENV DATABASE_CLIENT=postgres
 
-
 RUN yarn build
 
 EXPOSE 1337

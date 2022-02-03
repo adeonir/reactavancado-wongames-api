@@ -14,7 +14,7 @@ COPY . .
 ENV NODE_ENV production
 ENV DATABASE_CLIENT=postgres
 
-RUN yarn build
+RUN yarn build --clean
 
 EXPOSE 1337
 CMD ["yarn", "start"]

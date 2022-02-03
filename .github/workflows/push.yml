@@ -31,7 +31,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: wongames/api:latest
+          tags: adeonir/wongames-api:latest
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
